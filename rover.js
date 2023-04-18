@@ -4,18 +4,11 @@ class Rover {
         this.y = y
         this.dir = dir
     }
-
+    // changes the current direction given a direction
     changeDir(dir) {
-        if(dir == "L") {
-            this.dir = Rover.cardialPoint("L", this.dir)
-            console.log()
-        } else if(dir == "R") {
-            this.dir = cardialPoint("R", this.dir)
-        } else {
-            console.log("Rotation not recognized!!")
-        }
+        this.dir = Rover.cardialPoint(dir, this.dir)
     }
-
+    // checks where the current direction is and moves accordingly
     move(surface)  {
         switch (this.dir) {
             case "N":
@@ -36,6 +29,8 @@ class Rover {
                 break
         }
     }
+    // helper function that determines the correct direction when the rover rotates at 90
+    // degree angle left or right
     static cardialPoint(turn, dir) {
         if(turn == "L") {
             console.log(dir)
@@ -50,7 +45,7 @@ class Rover {
                     return "S"
             }
         } else {
-            switch (this.dir) {
+            switch (dir) {
                 case "N":
                     return "E"
                 case "S":
@@ -61,6 +56,21 @@ class Rover {
                     return "N"
             }
         }
+    }
+    // sends signal to the rover and the rover intepr
+    sendSignal(str, surface) {
+        str.split("").forEach((c) => {
+            if ("LR".includes(c)) {
+                this.changeDir(c)
+            } else if(c == "M") {
+                this.move(surface)
+            } else {
+                console.log("signal not interpretable")
+            }
+        })
+    }
+    pingLocation() {
+        return `(${this.x},${this.y}) facing ${this.dir}`
     }
 }
 
