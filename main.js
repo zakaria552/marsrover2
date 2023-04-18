@@ -1,0 +1,10 @@
+const Surface = require("./surface")
+
+const plateau = new Surface(5,5)
+const rover = plateau.addRover(1,2, "N")
+console.log(rover)
+console.log(plateau.grid)
+rover.changeDir("L")
+rover.move(plateau)
+console.log(rover)
+console.log(plateau.grid)
