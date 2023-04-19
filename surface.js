@@ -21,13 +21,12 @@ class Surface{
         return reversedGrid
     }
 
-    addRover(x, y, dir) {
-        let rover = new Rover(x, y, dir)
+    addRover(x, y, dir, surface) {
+        let rover = new Rover(x, y, dir, surface)
         this.grid[x][y] = rover
         return rover
-
     }
-    updateRoverCordinate(xi, yi, x, y) {
+    updateRoverCordinateOnSurface(xi, yi, x, y) {
         let temp = this.grid[xi][yi]
         this.grid[x][y] = temp
         this.grid[xi][yi] = ""
