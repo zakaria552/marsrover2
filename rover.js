@@ -44,7 +44,7 @@ class Rover {
         })
     }
     pingLocation() {
-        return `(${this.x},${this.y}) facing ${this.dir}`
+        return `(${this.x},${this.y}) facing ${this.orientation.dir}`
     }
 }
 
