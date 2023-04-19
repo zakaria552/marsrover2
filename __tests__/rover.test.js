@@ -1,0 +1,60 @@
+const Rover = require("../rover")
+const Surface = require("../surface")
+describe("rover class", () => {
+    test("create an instance of rover given its cordinate and orientation", () => {
+        const rover = new Rover(1, 2, "W")
+        expect(rover.orientation.dir).toBe("W")
+        expect(rover.x).toBe(1)
+        expect(rover.y).toBe(2)
+    })
+    test("rover has instance of the world it is dropped at", () => {
+        const plateau = new Surface(5,5)
+        const rover = plateau.addRover(1,2,"E", plateau)
+        console.log(rover.surface)
+        expect(rover.surface).toEqual(plateau)
+    })
+    test("change the orientation of the rover after receiving rotation singal", () => {
+        const rover = new Rover(1, 2, "W")
+        rover.changeOrient("L")
+        expect(rover.orientation.dir).toBe("S")
+        rover.changeOrient("R")
+        rover.changeOrient("R")
+        expect(rover.orientation.dir).toBe("N")
+    })
+    test("rover moves one step towards the direction it facing", () => {
+        const plateau = new Surface(5,5) 
+        const rover = plateau.addRover(1, 2, "W", plateau)
+
+        console.log(rover.surface)
+        rover.move()
+        expect(rover.x).toBe(0)
+        expect(rover.y).toBe(2)
+
+        rover.orientation.rotate("R")
+        rover.move()
+        expect(rover.y).toBe(3)
+        expect(rover.x).toBe(0)
+
+        rover.orientation.rotate("R")
+        rover.move()
+        rover.move()
+        expect(rover.x).toBe(2)
+        expect(rover.y).toBe(3)
+        
+    })
+    test("rover either moves or changes orientation based on valid incoming signal or signals", () => {
+        const plateau = new Surface(5,5)
+        const rover = plateau.addRover(1, 2, "E", plateau)
+        rover.sendSignal("M")
+        rover.sendSignal("M")
+        expect(rover.x).toBe(3)
+        expect(rover.y).toBe(2)
+        rover.sendSignal("L")
+        expect(rover.orientation.dir).toBe("N")
+        rover.sendSignal("MML")
+        expect(rover.orientation.dir).toBe("W")
+        expect(rover.x).toBe(3)
+        expect(rover.y).toBe(4)
+    })
+   
+})
