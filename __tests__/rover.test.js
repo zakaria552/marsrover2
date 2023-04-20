@@ -1,6 +1,6 @@
 const Rover = require("../rover")
 const Surface = require("../surface")
-describe("rover class", () => {
+describe.only("rover class", () => {
     test("create an instance of rover given its cordinate and orientation", () => {
         const rover = new Rover(1, 2, "W")
         expect(rover.orientation.dir).toBe("W")
@@ -31,6 +31,7 @@ describe("rover class", () => {
         expect(rover.y).toBe(2)
 
         rover.orientation.rotate("R")
+        console.log("here: ", rover.x, rover.y, rover.orientation.dir)
         rover.move()
         expect(rover.y).toBe(3)
         expect(rover.x).toBe(0)
