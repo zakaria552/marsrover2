@@ -11,13 +11,20 @@ class Surface{
     }
     // returns 2d array where the bottom-left coordinates points to (0,0)
     getGrid() {
-        let reversedGrid = []
-        for(let i = 0; i < this.grid.length; i++) {
-            reversedGrid.push([])
-            for(let j = this.grid[i].length - 1; j >=0; j--) {
-                reversedGrid[i].push(this.grid[i][j])
-            }
-        }
+        let reversedGrid = this.grid.map((arr) => {
+            return arr.map(() => "")
+        })
+        reversedGrid.forEach((arr, x) => {
+            arr.forEach((c, y) => {
+                if(this.grid[x][y] != "") {
+                    let i = this.grid.length - this.grid[x][y].y
+                    let j = this.grid[x][y].x- 1
+                    reversedGrid[i][j] = "R"
+                }
+            })
+        })
+        
+
         return reversedGrid
     }
 
