@@ -1,41 +1,17 @@
+const cardinalPoints = ["N", "E", "S", "W"]
 class Orientation {
     constructor(dir) {
         this.dir = dir
+        this.turn = cardinalPoints.indexOf(dir)
     }
 
-    rotate(turn) {
-        if(turn == "L") {
-            switch (this.dir) {
-                case "N":
-                    this.dir = "W"
-                    break;
-                case "S":
-                    this.dir = "E"
-                    break;
-                case "E":
-                    this.dir = "N"
-                    break;
-                case "W":
-                    this.dir = "S"
-                    break;
-            }
-        } else if (turn == "R") {
-            switch (this.dir) {
-                case "N":
-                    this.dir = "E"
-                    break;
-                case "S":
-                    this.dir = "W"
-                    break;
-                case "E":
-                    this.dir = "S"
-                    break;
-                case "W":
-                    this.dir = "N"
-                    break;
-            }
-        }
-    }
-}
+    rotate(rotation) {
+        // rotation == "R" ? this.turn = (this.turn + 1) % 4: this.turn = (((this.turn - 1) % 4) +4) % 4
+        rotation == "R" ? this.turn = (this.turn + 1) % 4: this.turn = (((this.turn - 1) % 4) +4) % 4
 
+        this.dir = cardinalPoints[this.turn]
+    }
+}  
+const orient = new Orientation("W")
+// facing west turn to the left should give us dir of south
 module.exports = Orientation
