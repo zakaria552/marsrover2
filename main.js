@@ -10,3 +10,4 @@ console.log(rover.pingLocation())
 // sending signals to rover2
 rover2.sendSignal("MMRMMRMRRM")
 console.log(rover2.pingLocation())
+console.log(plateau.getGrid())
