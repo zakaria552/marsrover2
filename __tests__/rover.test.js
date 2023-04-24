@@ -10,7 +10,6 @@ describe.only("rover class", () => {
     test("rover has instance of the world it is dropped at", () => {
         const plateau = new Surface(5,5)
         const rover = plateau.addRover(1,2,"E", plateau)
-        console.log(rover.surface)
         expect(rover.surface).toEqual(plateau)
     })
     test("change the orientation of the rover after receiving rotation singal", () => {
@@ -23,23 +22,21 @@ describe.only("rover class", () => {
     })
     test("rover moves one step towards the direction it facing", () => {
         const plateau = new Surface(5,5) 
-        const rover = plateau.addRover(1, 2, "W", plateau)
+        const rover = plateau.addRover(4, 2, "W", plateau)
 
-        console.log(rover.surface)
         rover.move()
-        expect(rover.x).toBe(0)
+        expect(rover.x).toBe(3)
         expect(rover.y).toBe(2)
 
         rover.orientation.rotate("R")
-        console.log("here: ", rover.x, rover.y, rover.orientation.dir)
         rover.move()
         expect(rover.y).toBe(3)
-        expect(rover.x).toBe(0)
+        expect(rover.x).toBe(3)
 
         rover.orientation.rotate("R")
         rover.move()
         rover.move()
-        expect(rover.x).toBe(2)
+        expect(rover.x).toBe(5)
         expect(rover.y).toBe(3)
         
     })
@@ -52,12 +49,18 @@ describe.only("rover class", () => {
         expect(rover.y).toBe(2)
         rover.sendSignal("L")
         expect(rover.orientation.dir).toBe("N")
-        console.log(rover.orientation)
         rover.sendSignal("MML")
-        console.log(rover.orientation)
         expect(rover.orientation.dir).toBe("W")
         expect(rover.x).toBe(3)
         expect(rover.y).toBe(4)
+    })
+    test("rover ignores the move signal if the cordinate of the next move is out of bound", () => {
+        const plateau = new Surface(5,5)
+        const rover = plateau.addRover(1, 2, "W", plateau)
+        rover.sendSignal("MMM")
+        plateau.updateRoverCordinateOnSurface()
+        expect(rover.x).toBe(0)
+        expect(rover.y).toBe(2)
     })
    
 })
