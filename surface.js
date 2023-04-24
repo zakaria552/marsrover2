@@ -2,6 +2,7 @@ const Rover = require("./rover.js")
 class Surface{
     constructor(row, col) {
         this.grid = []
+        this.rovers = []
         for(let i = 0; i <= row; i++) {
             this.grid.push([])
             for(let j = 0; j <= col; j++) {
@@ -11,6 +12,7 @@ class Surface{
     }
     // returns 2d array where the bottom-left coordinates points to (0,0)
     getGrid() {
+        this.updateRoverCordinateOnSurface()
         let reversedGrid = this.grid.map((arr) => {
             return arr.map(() => "")
         })
@@ -30,14 +32,14 @@ class Surface{
 
     addRover(x, y, dir, surface) {
         let rover = new Rover(x, y, dir, surface)
-        this.grid[x][y] = rover
+        this.rovers.push(rover)
         return rover
     }
-    updateRoverCordinateOnSurface(xi, yi, x, y) {
-        let temp = this.grid[xi][yi]
-        this.grid[x][y] = temp
-        this.grid[xi][yi] = ""
-
+    updateRoverCordinateOnSurface() {
+        this.rovers.forEach((rover) => {
+            this.grid[rover.x][rover.y] = rover
+        })
+        
     }
 }
 
