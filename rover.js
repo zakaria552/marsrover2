@@ -14,20 +14,16 @@ class Rover {
     move()  {
         switch (this.orientation.dir) {
             case "N":
-                this.surface.updateRoverCordinateOnSurface(this.x, this.y, this.x, this.y+1)
-                this.y++
+                this.isInBoundry(this.x, this.y + 1) ? this.y++: ""
                 break
             case "S":
-                this.surface.updateRoverCordinateOnSurface(this.x, this.y, this.x, this.y-1)
-                this.y--
+                this.isInBoundry(this.x, this.y - 1) ? this.y--: ""
                 break
             case "E":
-                this.surface.updateRoverCordinateOnSurface(this.x, this.y, this.x+1, this.y)
-                this.x++
+                this.isInBoundry(this.x + 1, this.y) ? this.x++: ""
                 break
             case "W":
-                this.surface.updateRoverCordinateOnSurface(this.x, this.y, this.x-1, this.y)
-                this.x--
+                this.isInBoundry(this.x - 1, this.y) ? this.x--: ""
                 break
         }
     }
@@ -45,6 +41,14 @@ class Rover {
     }
     pingLocation() {
         return `(${this.x},${this.y}) facing ${this.orientation.dir}`
+    }
+    isInBoundry(x, y) {
+        const xBound = this.surface.grid.length - 1
+        const yBound = this.surface.grid[0].length - 1
+        if((x >= 0 && x <= xBound) && (y >= 0 && y <= yBound)) {
+            return true
+        }
+        return false
     }
 }
 
