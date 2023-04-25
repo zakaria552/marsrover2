@@ -1,33 +1,9 @@
 const Rover = require("./rover.js")
 class Surface{
-    constructor(row, col) {
-        this.grid = []
+    constructor(sizeX, sizeY) {
         this.rovers = []
-        for(let i = 0; i <= row; i++) {
-            this.grid.push([])
-            for(let j = 0; j <= col; j++) {
-                this.grid[i].push("")
-            }
-        }
-    }
-    // returns 2d array where the bottom-left coordinates points to (0,0)
-    getGrid() {
-        this.updateRoverCordinateOnSurface()
-        let reversedGrid = this.grid.map((arr) => {
-            return arr.map(() => "")
-        })
-        reversedGrid.forEach((arr, x) => {
-            arr.forEach((c, y) => {
-                if(this.grid[x][y] != "") {
-                    let i = this.grid.length - this.grid[x][y].y
-                    let j = this.grid[x][y].x- 1
-                    reversedGrid[i][j] = "R"
-                }
-            })
-        })
-        
-
-        return reversedGrid
+        this.sizeX = sizeX
+        this.sizeY = sizeY
     }
 
     addRover(x, y, dir, surface) {
@@ -35,11 +11,23 @@ class Surface{
         this.rovers.push(rover)
         return rover
     }
-    updateRoverCordinateOnSurface() {
-        this.rovers.forEach((rover) => {
-            this.grid[rover.x][rover.y] = rover
-        })
-        
+    checkCollision(roverX, roverY) {
+        for(let i = 0; i < this.rovers.length; i++) {
+            let rover2 = this.rovers[i]
+            if(rover2.x == roverX  && rover2.y == roverY) {
+                return true
+            }
+        }
+        return false
+    }
+    boundaryCheck(roverX, roverY) {
+        if((roverX >= 0 && roverX <= this.sizeX) && (roverY >= 0 && roverY <= this.sizeY)) {
+            return true
+        }
+        return false
+    }
+    motionLimits(roverX, roverY) {
+        return this.boundaryCheck(roverX,roverY) && !this.checkCollision(roverX,roverY)
     }
 }
 
