@@ -14,16 +14,16 @@ class Rover {
     move()  {
         switch (this.orientation.dir) {
             case "N":
-                this.isInBoundry(this.x, this.y + 1) ? this.y++: ""
+                this.canMove(this.x, this.y + 1) ? this.y++: ""
                 break
             case "S":
-                this.isInBoundry(this.x, this.y - 1) ? this.y--: ""
+                this.canMove(this.x, this.y - 1) ? this.y--: ""
                 break
             case "E":
-                this.isInBoundry(this.x + 1, this.y) ? this.x++: ""
+                this.canMove(this.x + 1, this.y) ? this.x++: ""
                 break
             case "W":
-                this.isInBoundry(this.x - 1, this.y) ? this.x--: ""
+                this.canMove(this.x - 1, this.y) ? this.x--: ""
                 break
         }
     }
@@ -49,6 +49,19 @@ class Rover {
             return true
         }
         return false
+    }
+    isInCollision(x, y) {
+        const rovers = this.surface.rovers
+        for(let i = 0; i < rovers.length; i++) {
+            let rover = rovers[i]
+            if(rover.x == x && rover.y == y) {
+                return true
+            }
+        }
+        return false
+    }
+    canMove(x, y) {
+        return this.isInBoundry(x,y) &&  !this.isInCollision(x,y)
     }
 }
 
