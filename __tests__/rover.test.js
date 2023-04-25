@@ -62,5 +62,14 @@ describe.only("rover class", () => {
         expect(rover.x).toBe(0)
         expect(rover.y).toBe(2)
     })
+    test("rover does not move location that is already occupied", () => {
+        const plateau = new Surface(5,5)
+        const rover = plateau.addRover(1, 2, "N", plateau)
+        const rover2 = plateau.addRover(2, 2, "W", plateau)
+        rover2.sendSignal("M")
+        
+        expect(rover2.x).toBe(2)
+        expect(rover2.y).toBe(2)
+    })
    
 })
