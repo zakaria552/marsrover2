@@ -14,16 +14,16 @@ class Rover {
     move()  {
         switch (this.orientation.dir) {
             case "N":
-                this.canMove(this.x, this.y + 1) ? this.y++: ""
+                this.surface.motionLimits(this.x, this.y + 1) ? this.y++: ""
                 break
             case "S":
-                this.canMove(this.x, this.y - 1) ? this.y--: ""
+                this.surface.motionLimits(this.x, this.y - 1) ? this.y--: ""
                 break
             case "E":
-                this.canMove(this.x + 1, this.y) ? this.x++: ""
+                this.surface.motionLimits(this.x + 1, this.y) ? this.x++: ""
                 break
             case "W":
-                this.canMove(this.x - 1, this.y) ? this.x--: ""
+                this.surface.motionLimits(this.x - 1, this.y) ? this.x--: ""
                 break
         }
     }
@@ -41,27 +41,6 @@ class Rover {
     }
     pingLocation() {
         return `(${this.x},${this.y}) facing ${this.orientation.dir}`
-    }
-    isInBoundry(x, y) {
-        const xBound = this.surface.grid.length - 1
-        const yBound = this.surface.grid[0].length - 1
-        if((x >= 0 && x <= xBound) && (y >= 0 && y <= yBound)) {
-            return true
-        }
-        return false
-    }
-    isInCollision(x, y) {
-        const rovers = this.surface.rovers
-        for(let i = 0; i < rovers.length; i++) {
-            let rover = rovers[i]
-            if(rover.x == x && rover.y == y) {
-                return true
-            }
-        }
-        return false
-    }
-    canMove(x, y) {
-        return this.isInBoundry(x,y) &&  !this.isInCollision(x,y)
     }
 }
 
