@@ -30,8 +30,8 @@ describe.only("rover class", () => {
 
         rover.orientation.rotate("R")
         rover.move()
-        expect(rover.y).toBe(3)
         expect(rover.x).toBe(3)
+        expect(rover.y).toBe(3)
 
         rover.orientation.rotate("R")
         rover.move()
@@ -58,11 +58,10 @@ describe.only("rover class", () => {
         const plateau = new Surface(5,5)
         const rover = plateau.addRover(1, 2, "W", plateau)
         rover.sendSignal("MMM")
-        plateau.updateRoverCordinateOnSurface()
         expect(rover.x).toBe(0)
         expect(rover.y).toBe(2)
     })
-    test("rover does not move location that is already occupied", () => {
+    test("rover does not move to a location that is already occupied", () => {
         const plateau = new Surface(5,5)
         const rover = plateau.addRover(1, 2, "N", plateau)
         const rover2 = plateau.addRover(2, 2, "W", plateau)
