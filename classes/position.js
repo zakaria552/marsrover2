@@ -4,10 +4,6 @@ class Position {
         this.y = y
     }
 
-   changePosition(newPosition) {
-        this.x = newPosition.getX()
-        this.y = newPosition.getY()
-   }
    getNextPosition(orient) {
         // ["N", "E", "S", "W"] - "N" -> [x,y]=[0,1]
         const increments = [[0,1], [1,0], [0,-1], [-1,0]]
