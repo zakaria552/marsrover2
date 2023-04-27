@@ -1,6 +1,6 @@
 const Rover = require("../classes/rover")
 const Surface = require("../classes/surface")
-describe.only("rover class", () => {
+describe("rover class", () => {
     test("create an instance of rover given its cordinate and orientation", () => {
         const rover = new Rover(1, 2, "W")
         expect(rover.orientation.dir).toBe("W")

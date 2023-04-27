@@ -1,4 +1,4 @@
-const Orientation = require("../orientation")
+const Orientation = require("../classes/orientation")
 
 describe("Orientation class", () => {
     test("create an instance of oerientation given direction", () => {
