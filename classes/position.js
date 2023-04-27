@@ -4,15 +4,17 @@ class Position {
         this.y = y
     }
 
-   addToPosition(increments) {
-        this.x = this.x + increments[0]
-        this.y = this.y + increments[1]
+   changePosition(newPosition) {
+        this.x = newPosition.getX()
+        this.y = newPosition.getY()
    }
-   getNextPositionIncrements(orient) {
+   getNextPosition(orient) {
         // ["N", "E", "S", "W"] - "N" -> [x,y]=[0,1]
         const increments = [[0,1], [1,0], [0,-1], [-1,0]]
         const i = orient.getCardinalPoints().indexOf(orient.getDir())
-        return increments[i]
+        const x = increments[i][0] + this.x
+        const y = increments[i][1] + this.y
+        return new Position(x,y)
    }
    getX() {
         return this.x

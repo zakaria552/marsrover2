@@ -11,9 +11,9 @@ class Surface{
         this.rovers.push(rover)
         return rover
     }
-    collisionDetected(roverPosition, moveIncrements) {
-        const roverX = roverPosition.getX() + moveIncrements[0]
-        const roverY = roverPosition.getY() + moveIncrements[1]
+    collisionDetected(roverNextPosition) {
+        const roverX = roverNextPosition.getX()
+        const roverY = roverNextPosition.getY()
         for(let i = 0; i < this.rovers.length; i++) {
             let rover2 = this.rovers[i]
             if(rover2.position.getX() == roverX && rover2.position.getY() == roverY) {
@@ -22,16 +22,16 @@ class Surface{
         }
         return false
     }
-    roverIsWithInBounds(roverPosition, moveIncrements) {
-        const roverX = roverPosition.getX() + moveIncrements[0]
-        const roverY = roverPosition.getY() + moveIncrements[1]
+    roverIsWithInBounds(roverNextPosition) {
+        const roverX = roverNextPosition.getX()
+        const roverY = roverNextPosition.getY()
         if((roverX >= 0 && roverX <= this.sizeX) && (roverY >= 0 && roverY <= this.sizeY)) {
             return true
         }
         return false
     }
-    isMovementPossible(roverPosition, moveIncrements) {
-        return this.roverIsWithInBounds(roverPosition, moveIncrements) && !this.collisionDetected(roverPosition,moveIncrements)
+    isMovementPossible(roverNextPosition) {
+        return this.roverIsWithInBounds(roverNextPosition) && !this.collisionDetected(roverNextPosition)
     }
 }
 

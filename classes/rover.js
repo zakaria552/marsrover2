@@ -13,8 +13,8 @@ class Rover {
     }
     // checks where the current direction is and moves accordingly
     move()  {
-        const moveIncrements = this.position.getNextPositionIncrements(this.orientation)
-        this.surface.isMovementPossible(this.position, moveIncrements) ? this.position.addToPosition(moveIncrements): ""
+        const roverNextPosition = this.position.getNextPosition(this.orientation)
+        this.surface.isMovementPossible(roverNextPosition) ? this.position.changePosition(roverNextPosition): ""
     }
     // sends signal to the rover and the rover intepr
     sendSignal(str) {
