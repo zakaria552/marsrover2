@@ -3,12 +3,23 @@ class Position {
         this.x = x
         this.y = y
     }
-    setX(num) {
-        this.x = this.x + num
-    }
-    setY(num) {
-        this.y = this.y + num
-    }
+
+   addToPosition(increments) {
+        this.x = this.x + increments[0]
+        this.y = this.y + increments[1]
+   }
+   getNextPositionIncrements(orient) {
+        // ["N", "E", "S", "W"] - "N" -> [x,y]=[0,1]
+        const increments = [[0,1], [1,0], [0,-1], [-1,0]]
+        const i = orient.getCardinalPoints().indexOf(orient.getDir())
+        return increments[i]
+   }
+   getX() {
+        return this.x
+   }
+   getY() {
+        return this.y
+   }
 }
 
 module.exports = Position
