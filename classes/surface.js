@@ -11,7 +11,7 @@ class Surface{
         this.rovers.push(rover)
         return rover
     }
-    collisionDetected(roverNextPosition) {
+    isRoverColliding(roverNextPosition) {
         const roverX = roverNextPosition.getX()
         const roverY = roverNextPosition.getY()
         for(let i = 0; i < this.rovers.length; i++) {
@@ -22,7 +22,7 @@ class Surface{
         }
         return false
     }
-    roverIsWithInBounds(roverNextPosition) {
+    isRoverWithInBounds(roverNextPosition) {
         const roverX = roverNextPosition.getX()
         const roverY = roverNextPosition.getY()
         if((roverX >= 0 && roverX <= this.sizeX) && (roverY >= 0 && roverY <= this.sizeY)) {
@@ -31,7 +31,7 @@ class Surface{
         return false
     }
     isMovementPossible(roverNextPosition) {
-        return this.roverIsWithInBounds(roverNextPosition) && !this.collisionDetected(roverNextPosition)
+        return this.isRoverWithInBounds(roverNextPosition) && !this.isRoverColliding(roverNextPosition)
     }
 }
 
