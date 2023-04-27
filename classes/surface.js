@@ -11,23 +11,27 @@ class Surface{
         this.rovers.push(rover)
         return rover
     }
-    checkCollision(roverX, roverY) {
+    collisionDetected(roverPosition, moveIncrements) {
+        const roverX = roverPosition.getX() + moveIncrements[0]
+        const roverY = roverPosition.getY() + moveIncrements[1]
         for(let i = 0; i < this.rovers.length; i++) {
             let rover2 = this.rovers[i]
-            if(rover2.position.x == roverX  && rover2.position.y == roverY) {
+            if(rover2.position.getX() == roverX && rover2.position.getY() == roverY) {
                 return true
             }
         }
         return false
     }
-    boundaryCheck(roverX, roverY) {
+    roverIsWithInBounds(roverPosition, moveIncrements) {
+        const roverX = roverPosition.getX() + moveIncrements[0]
+        const roverY = roverPosition.getY() + moveIncrements[1]
         if((roverX >= 0 && roverX <= this.sizeX) && (roverY >= 0 && roverY <= this.sizeY)) {
             return true
         }
         return false
     }
-    motionLimits(roverX, roverY) {
-        return this.boundaryCheck(roverX,roverY) && !this.checkCollision(roverX,roverY)
+    isMovementPossible(roverPosition, moveIncrements) {
+        return this.roverIsWithInBounds(roverPosition, moveIncrements) && !this.collisionDetected(roverPosition,moveIncrements)
     }
 }
 
