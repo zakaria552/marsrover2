@@ -30,7 +30,8 @@ class Surface{
         }
         return false
     }
-    isMovementPossible(roverNextPosition) {
+    isMovementPossible(rover) {
+        const roverNextPosition = rover.position.getRoverNextPosition(rover.orientation)
         return this.isRoverWithInBounds(roverNextPosition) && !this.isRoverColliding(roverNextPosition)
     }
 }
