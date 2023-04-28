@@ -13,7 +13,7 @@ class Rover {
     move()  {
         let hasMoved = true
         const orientationTurn = this.orientation.getTurn()
-        const xyChanges = this.orientation.getOrientationInXY()
+        const xyChanges = this.orientation.getOrientationIncrements()
         const roverNextPosition = this.position.getNextPosition(xyChanges)
         this.surface.isMovementPossible(roverNextPosition) ? this.position = roverNextPosition: hasMoved = false
         hasMoved ? console.log("moving ", orientationTurn): console.log("can not move")
