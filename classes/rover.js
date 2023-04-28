@@ -7,16 +7,17 @@ class Rover {
         this.orientation = new Orientation(dir)
         this.surface = surface
     }
-    // changes the current orientation given a 
     changeOrient(turn) {
         this.orientation.rotate(turn)
     }
-    // checks where the current direction is and moves accordingly
     move()  {
-        const roverNextPosition = this.position.getNextPosition(this.orientation)
-        this.surface.isMovementPossible(roverNextPosition) ? this.position = roverNextPosition: ""
+        let hasMoved = true
+        const orientationTurn = this.orientation.getTurn()
+        const xyChanges = this.orientation.getOrientationInXY()
+        const roverNextPosition = this.position.getNextPosition(xyChanges)
+        this.surface.isMovementPossible(roverNextPosition) ? this.position = roverNextPosition: hasMoved = false
+        hasMoved ? console.log("moving ", orientationTurn): console.log("can not move")
     }
-    // sends signal to the rover and the rover intepr
     sendSignal(str) {
         str.split("").forEach((c) => {
             if ("LR".includes(c)) {
