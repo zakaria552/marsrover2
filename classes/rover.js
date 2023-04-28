@@ -12,11 +12,17 @@ class Rover {
     }
     move()  {
         let hasMoved = true
-        const orientationTurn = this.orientation.getTurn()
-        const xyChanges = this.orientation.getOrientationIncrements()
-        const roverNextPosition = this.position.getNextPosition(xyChanges)
-        this.surface.isMovementPossible(roverNextPosition) ? this.position = roverNextPosition: hasMoved = false
-        hasMoved ? console.log("moving ", orientationTurn): console.log("can not move")
+        if(this.surface.isMovementPossible(this)) {
+            this.position = this.position.getRoverNextPosition(this.orientation)
+        } else {
+            hasMoved = false
+        }
+        
+        if(hasMoved) {
+            console.log( "moving ", this.orientation.getTurn())
+        } else {
+            console.log("can not move")
+        }
     }
     sendSignal(str) {
         str.split("").forEach((c) => {
