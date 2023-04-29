@@ -1,31 +1,31 @@
 const Rover = require("./rover.js")
 class Surface{
-    constructor(sizeX, sizeY) {
-        this.rovers = []
-        this.sizeX = sizeX
-        this.sizeY = sizeY
+    constructor(width, height) {
+        this.roversInSurface = []
+        this.width = width
+        this.height = height
     }
 
-    addRover(x, y, dir, surface) {
-        let rover = new Rover(x, y, dir, surface)
-        this.rovers.push(rover)
+    addRover(x, y, direction, surface) {
+        const rover = new Rover(x, y, direction, surface)
+        this.roversInSurface.push(rover)
         return rover
     }
     isRoverColliding(roverNextPosition) {
-        const roverX = roverNextPosition.getX()
-        const roverY = roverNextPosition.getY()
-        for(let i = 0; i < this.rovers.length; i++) {
-            let rover2 = this.rovers[i]
-            if(rover2.position.getX() == roverX && rover2.position.getY() == roverY) {
+        const roverXCoordinate = roverNextPosition.getXCoordinate()
+        const roverYCoordinate = roverNextPosition.getYCoordinate()
+        for(let i = 0; i < this.roversInSurface.length; i++) {
+            const rover2 = this.roversInSurface[i]
+            if(rover2.position.getXCoordinate() == roverXCoordinate && rover2.position.getYCoordinate() == roverYCoordinate) {
                 return true
             }
         }
         return false
     }
     isRoverWithInBounds(roverNextPosition) {
-        const roverX = roverNextPosition.getX()
-        const roverY = roverNextPosition.getY()
-        if((roverX >= 0 && roverX <= this.sizeX) && (roverY >= 0 && roverY <= this.sizeY)) {
+        const roverX = roverNextPosition.getXCoordinate()
+        const roverY = roverNextPosition.getYCoordinate()
+        if((roverX >= 0 && roverX <= this.width) && (roverY >= 0 && roverY <= this.height)) {
             return true
         }
         return false
