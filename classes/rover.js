@@ -2,23 +2,17 @@ const Orientation = require("./orientation")
 const Position = require("./position.js")
 
 class Rover {
-    constructor(x, y, dir, surface) {
+    constructor(x, y, direction, surface) {
         this.position = new Position(x, y)
-        this.orientation = new Orientation(dir)
+        this.orientation = new Orientation(direction)
         this.surface = surface
     }
-    changeOrient(turn) {
-        this.orientation.rotate(turn)
+    turn(turn) {
+        this.orientation.changeOrientationByTurn(turn)
     }
     move()  {
-        let hasMoved = true
         if(this.surface.isMovementPossible(this)) {
             this.position = this.position.getRoverNextPosition(this.orientation)
-        } else {
-            hasMoved = false
-        }
-        
-        if(hasMoved) {
             console.log( "moving ", this.orientation.getTurn())
         } else {
             console.log("can not move")
@@ -27,7 +21,7 @@ class Rover {
     sendSignal(str) {
         str.split("").forEach((c) => {
             if ("LR".includes(c)) {
-                this.changeOrient(c)
+                this.turn(c)
             } else if(c == "M") {
                 this.move()
             } else {
@@ -36,7 +30,7 @@ class Rover {
         })
     }
     pingLocation() {
-        return `(${this.position.getX()},${this.position.getY()}) facing ${this.orientation.getDir()}`
+        return `(${this.position.getXCoordinate()},${this.position.getYCoordinate()}) facing ${this.orientation.getCurrentDirection()}`
     }
 }
 
