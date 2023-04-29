@@ -1,20 +1,20 @@
 class Position {
      constructor(x,y) {
-          this.x = x
-          this.y = y
+          this.xCoordinate = x
+          this.yCoordinate = y
      }
 
      getRoverNextPosition(orient) {
-          const [xChange, yChange] = orient.getPositionIncrements()
-          let x = this.x + xChange
-          let y = this.y + yChange
+          const [xChange, yChange] = orient.getCardinalPoints()[orient.getCurrentDirection()]
+          let x = this.xCoordinate + xChange
+          let y = this.yCoordinate + yChange
           return new Position(x,y)
      }
-     getX() {
-          return this.x
+     getXCoordinate() {
+          return this.xCoordinate
      }
-     getY() {
-          return this.y
+     getYCoordinate() {
+          return this.yCoordinate
      }
 }
 
