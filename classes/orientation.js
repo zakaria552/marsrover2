@@ -1,29 +1,27 @@
 class Orientation {
-    constructor(dir) {
-        this.cardinalPoints = ["N", "E", "S", "W"]
-        this.dir = dir
-        this.dirIndex = this.cardinalPoints.indexOf(dir)
+    constructor(direction) {
+        this.cardinalPoints = {"N": [0,1], "E": [1,0], "S": [0,-1], "W": [-1,0]}
+        this.currentDirection = direction
+        this.currentDirectionIndex = Object.keys(this.cardinalPoints).indexOf(direction)
     }
 
-    rotate(rotation) {
-        if(rotation == "R") {
-            this.dirIndex = (this.dirIndex + 1) % 4
+    changeOrientationByTurn(turn) {
+        if(turn == "R") {
+            this.currentDirectionIndex = (this.currentDirectionIndex + 1) % 4
         } else {
-            this.dirIndex = ((this.dirIndex + 3) % 4)
+            this.currentDirectionIndex = ((this.currentDirectionIndex + 3) % 4)
         }
-        this.dir = this.cardinalPoints[this.dirIndex]
+        this.currentDirection = Object.keys(this.cardinalPoints)[this.currentDirectionIndex]
     }
-    getDir() {
-        return this.dir
+    getCurrentDirection() {
+        return this.currentDirection
     }
-    getPositionIncrements() {
-        // ["N", "E", "S", "W"] - "N" => [x,y]=[0,1]
-        const increments = [[0,1], [1,0], [0,-1], [-1,0]]
-        return increments[this.dirIndex]
+    getCardinalPoints() {
+        return this.cardinalPoints
     }
     getTurn() {
         let turns = ["up", "right", "down", "left"]
-        return turns[this.dirIndex]
+        return turns[this.currentDirectionIndex]
     }
 }  
 
