@@ -1,17 +1,22 @@
 class Orientation {
     constructor(direction) {
-        this.cardinalPoints = {"N": [0,1], "E": [1,0], "S": [0,-1], "W": [-1,0]}
+        this.cardinalPoints = {
+            "N": { move: [0, 1], index: 0 , cardinalPoint: "N"},
+            "E": { move: [1, 0], index: 1, cardinalPoint: "E"},
+            "S": { move: [0, -1], index: 2, cardinalPoint: "S"},
+            "W": { move: [-1, 0], index: 3, cardinalPoint: "W"}
+        }
         this.currentDirection = direction
-        this.currentDirectionIndex = Object.keys(this.cardinalPoints).indexOf(direction)
+        this.currentDirectionIndex = this.cardinalPoints[direction].index
     }
 
     changeOrientationByTurn(turn) {
-        if(turn == "R") {
-            this.currentDirectionIndex = (this.currentDirectionIndex + 1) % 4
+        if (turn == "R") {
+            this.currentDirectionIndex = (this.cardinalPoints[this.currentDirection].index + 1) % 4
         } else {
-            this.currentDirectionIndex = ((this.currentDirectionIndex + 3) % 4)
+            this.currentDirectionIndex = ((this.cardinalPoints[this.currentDirection].index + 3) % 4)
         }
-        this.currentDirection = Object.keys(this.cardinalPoints)[this.currentDirectionIndex]
+        this.currentDirection = Object.values(this.cardinalPoints)[this.currentDirectionIndex].cardinalPoint
     }
     getCurrentDirection() {
         return this.currentDirection
@@ -19,10 +24,6 @@ class Orientation {
     getCardinalPoints() {
         return this.cardinalPoints
     }
-    getTurn() {
-        let turns = ["up", "right", "down", "left"]
-        return turns[this.currentDirectionIndex]
-    }
-}  
+}
 
 module.exports = Orientation
