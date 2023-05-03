@@ -9,14 +9,20 @@ class Rover {
     }
     turn(turn) {
         this.orientation.changeOrientationByTurn(turn)
+        if(turn == "R") {
+            console.log("Turning to the right")
+        } else {
+            console.log("Turning to the left")
+        }
     }
     move()  {
         if(this.surface.isMovementPossible(this)) {
             this.position = this.position.getRoverNextPosition(this.orientation)
-            console.log( "moving ", this.orientation.getTurn())
+            console.log(`Moving forward`)
         } else {
             console.log("can not move")
         }
+        console.log(this.pingLocation())
     }
     sendSignal(str) {
         str.split("").forEach((c) => {
