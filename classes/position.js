@@ -1,14 +1,19 @@
 class Position {
-    constructor(x,y) {
-        this.x = x
-        this.y = y
-    }
-    setX(num) {
-        this.x = this.x + num
-    }
-    setY(num) {
-        this.y = this.y + num
-    }
+     constructor(x,y) {
+          this.xCoordinate = x
+          this.yCoordinate = y
+     }
+
+     getRoverNextPosition(orient) {
+          const [xChange, yChange] = orient.getDeltaXY()
+          let x = this.xCoordinate + xChange
+          let y = this.yCoordinate + yChange
+          return new Position(x,y)
+     }
+     
+     getCoordinates() {
+          return [this.xCoordinate, this.yCoordinate]
+     }
 }
 
 module.exports = Position

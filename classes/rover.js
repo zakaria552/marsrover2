@@ -2,37 +2,35 @@ const Orientation = require("./orientation")
 const Position = require("./position.js")
 
 class Rover {
-    constructor(x, y, dir, surface) {
+    constructor(x, y, direction, surface) {
         this.position = new Position(x, y)
-        this.orientation = new Orientation(dir)
+        this.orientation = new Orientation(direction)
         this.surface = surface
     }
-    // changes the current orientation given a 
-    changeOrient(turn) {
-        this.orientation.rotate(turn)
-    }
-    // checks where the current direction is and moves accordingly
-    move()  {
-        switch (this.orientation.dir) {
-            case "N":
-                this.surface.motionLimits(this.position.x, this.position.y + 1) ? this.position.setY(1): ""
-                break
-            case "S":
-                this.surface.motionLimits(this.position.x, this.position.y - 1) ? this.position.setY(-1): ""
-                break
-            case "E":
-                this.surface.motionLimits(this.position.x + 1, this.position.y) ? this.position.setX(1): ""
-                break
-            case "W":
-                this.surface.motionLimits(this.position.x - 1, this.position.y) ? this.position.setX(-1): ""
-                break
+    
+    turn(turn) {
+        this.orientation.changeOrientationByTurn(turn)
+        if(turn == "R") {
+            console.log("Turning to the right")
+        } else {
+            console.log("Turning to the left")
         }
     }
-    // sends signal to the rover and the rover intepr
+
+    move()  {
+        if(this.surface.isMovementPossible(this)) {
+            this.position = this.position.getRoverNextPosition(this.orientation)
+            console.log(`Moving forward`)
+        } else {
+            console.log("can not move")
+        }
+        console.log(this.pingLocation())
+    }
+
     sendSignal(str) {
         str.split("").forEach((c) => {
             if ("LR".includes(c)) {
-                this.changeOrient(c)
+                this.turn(c)
             } else if(c == "M") {
                 this.move()
             } else {
@@ -40,8 +38,10 @@ class Rover {
             }
         })
     }
+
     pingLocation() {
-        return `(${this.position.x},${this.position.y}) facing ${this.orientation.dir}`
+        const [roverXCoordinate, roverYCoordinate] = this.position.getCoordinates()
+        return `(${roverXCoordinate},${roverYCoordinate}) facing ${this.orientation.getcurrentCardinalPoint()}`
     }
 }
 
