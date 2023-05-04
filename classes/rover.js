@@ -7,6 +7,7 @@ class Rover {
         this.orientation = new Orientation(direction)
         this.surface = surface
     }
+    
     turn(turn) {
         this.orientation.changeOrientationByTurn(turn)
         if(turn == "R") {
@@ -15,6 +16,7 @@ class Rover {
             console.log("Turning to the left")
         }
     }
+
     move()  {
         if(this.surface.isMovementPossible(this)) {
             this.position = this.position.getRoverNextPosition(this.orientation)
@@ -24,6 +26,7 @@ class Rover {
         }
         console.log(this.pingLocation())
     }
+
     sendSignal(str) {
         str.split("").forEach((c) => {
             if ("LR".includes(c)) {
@@ -35,8 +38,10 @@ class Rover {
             }
         })
     }
+
     pingLocation() {
-        return `(${this.position.getXCoordinate()},${this.position.getYCoordinate()}) facing ${this.orientation.getCurrentDirection()}`
+        const [roverXCoordinate, roverYCoordinate] = this.position.getCoordinates()
+        return `(${roverXCoordinate},${roverYCoordinate}) facing ${this.orientation.getcurrentCardinalPoint()}`
     }
 }
 

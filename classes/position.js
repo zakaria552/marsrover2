@@ -5,16 +5,14 @@ class Position {
      }
 
      getRoverNextPosition(orient) {
-          const [xChange, yChange] = orient.getCardinalPoints()[orient.getCurrentDirection()].move
+          const [xChange, yChange] = orient.getDeltaXY()
           let x = this.xCoordinate + xChange
           let y = this.yCoordinate + yChange
           return new Position(x,y)
      }
-     getXCoordinate() {
-          return this.xCoordinate
-     }
-     getYCoordinate() {
-          return this.yCoordinate
+     
+     getCoordinates() {
+          return [this.xCoordinate, this.yCoordinate]
      }
 }
 
