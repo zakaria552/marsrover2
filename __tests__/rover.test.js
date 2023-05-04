@@ -3,7 +3,7 @@ const Surface = require("../classes/surface")
 describe("rover class", () => {
     test("create an instance of rover given its cordinate and orientation", () => {
         const rover = new Rover(1, 2, "W")
-        expect(rover.orientation.currentDirection).toBe("W")
+        expect(rover.orientation.currentCardinalPoint).toBe("W")
         expect(rover.position.xCoordinate).toBe(1)
         expect(rover.position.yCoordinate).toBe(2)
     })
@@ -15,10 +15,10 @@ describe("rover class", () => {
     test("change the orientation of the rover after receiving rotation singal", () => {
         const rover = new Rover(1, 2, "W")
         rover.turn("L")
-        expect(rover.orientation.currentDirection).toBe("S")
+        expect(rover.orientation.currentCardinalPoint).toBe("S")
         rover.turn("R")
         rover.turn("R")
-        expect(rover.orientation.currentDirection).toBe("N")
+        expect(rover.orientation.currentCardinalPoint).toBe("N")
     })
     test("rover moves one step towards the direction it facing", () => {
         const plateau = new Surface(5,5) 
@@ -48,9 +48,9 @@ describe("rover class", () => {
         expect(rover.position.xCoordinate).toBe(3)
         expect(rover.position.yCoordinate).toBe(2)
         rover.sendSignal("L")
-        expect(rover.orientation.currentDirection).toBe("N")
+        expect(rover.orientation.currentCardinalPoint).toBe("N")
         rover.sendSignal("MML")
-        expect(rover.orientation.currentDirection).toBe("W")
+        expect(rover.orientation.currentCardinalPoint).toBe("W")
         expect(rover.position.xCoordinate).toBe(3)
         expect(rover.position.yCoordinate).toBe(4)
     })
